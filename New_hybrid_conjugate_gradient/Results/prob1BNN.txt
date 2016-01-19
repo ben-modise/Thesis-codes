@@ -1,0 +1,9 @@
+
+ New hybrid conjugate gradient projection method for the convex constrained equations. 
+
+
+ ---------------------------------------------------------
+FN 		 ObjFun		 Dim	 iflag 	 NI 	 NFE		 CPU 		 norm(g0)
+ 1		 problem1	 1000	 0		   1	   4	0.12287998		  0.00000000
+ 2		 problem1	10000	 0		   1	   4	0.32791400		  0.00000000
+ 3		 problem1	100000	 0		   1	   4	2.77529097		  0.00000000
