@@ -7,5 +7,5 @@ if nargin < 2
 end
 
 u = abs(v);
-b = P_Simplex(v,z);
+b = P_Simplex(u,z);
 w = sign(v).*b;
