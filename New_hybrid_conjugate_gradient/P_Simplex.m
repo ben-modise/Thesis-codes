@@ -8,12 +8,6 @@ if nargin < 2
 end
 
 
-if norm(x,1) <= z
-    rho=n;
-    w = x;
-    return
-end
-    
 mu = sort(x,'descend');
 
 j = n;
