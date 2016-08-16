@@ -1,8 +1,9 @@
-function [x,k,numf,gnorm, iflag] = BNN(x0,f,P,tol,maxit)
-%   New hybrid conjugate gradient projection method for the
-%   convex constrained equations. Min Sun & Jing 
-%   DOI 10.1007/s10092-0150154-z
-
+function [x,k,numf,gnorm, iflag] = BD(x0,f,P,tol,maxit)
+%   Hybrd Conjugate Gradient Projection method for convex constrained monotone
+%   systems. Based on 'A modified Hestenes–Stiefel conjugate gradient method with
+%   sufficient descent condition and conjugacy condition' by Dong et al.
+%   
+%
 %   This program implements the algorithm for the above paper for 
 %   solving convex constrained equations that are monotone.
 
@@ -49,12 +50,14 @@ end
 
 rho = 0.5;
 sigma = 1e-4;
-mu = 1.4;
-ga = 2.1; %gamma variable
+%mu = 1.4;
+eta = 1;
+ga = 1.9; %gamma variable
 %b_min = 1;
 %b_max = 10;
 k = 0;
-bk = 1; %beta for the line search (whereas b_nn is for computing direction)
+bk = 1; %beta for the line search (whereas b_bd is for computing direction)
+t = 1;
 
 xk = x0; 
 Fk = feval(f,xk);
@@ -63,26 +66,40 @@ iflag = 0;
 % variablename_1 represents the value at k-1
 Fk_1 = Fk;
 dk_1 = zeros(size(Fk));
+alphak_1 = 0;
 
-%b_nn = 0;
+%b_bd = 0;
+A = 1; %used to store Fk'*y_k-1 value
+B = 1; %used to store Fk'*d_k-1 value
+
+count1 = -1;
+count2 = 0;
+count3 = 0;
 
 while(norm(Fk) > tol && k <= maxit) %step1
     % step2: calculation of direction
-    if k==0
-        b_nn=0;
-    else
-        Fk = feval(f,xk);
-        numf = numf + 1;
+    if isequal(k,0) || A < 0
+        %b_bd=0;
+        dk = -Fk;
+        count1 +=1;
+    elseif B > 0  
+        C = dk_1'*yk_1;   
         %calculation of the hybrid beta parameter
-        A = norm(Fk)^2;
-        temp1 = (norm(Fk)/norm(Fk_1))*(Fk'*Fk_1);
-        B = max([0,temp1]);
-        temp2 = mu*norm(dk_1)*norm(Fk);
-        temp3 = dk_1'*(Fk-Fk_1);
-        C = max([temp2,temp3]);
-        b_nn = (A-B)/C;
+        etak_1 = -1/(norm(dk_1)*min([eta, norm(Fk_1)]));
+        b_hs = (A)/(C);
+        b_dhs = (-(Fk_1'*dk_1)/(C))*b_hs - t*(norm(yk_1)^2*B)/(C^2);
+        b_D = max([etak_1,b_dhs]);
+        lambda_k = 1 + (B*A)/(C*norm(Fk)^2);
+        dk = -lambda_k*Fk + b_D*dk_1;
+        count2+=1
+    elseif B <= 0
+        deltak_1 = 1 + norm(Fk_1)^-1*max([0,((-alphak_1*dk_1'*yk_1)/(alphak_1^2*norm(dk_1)^2))]);
+        ybk_1 = yk_1 + deltak_1*alphak_1*norm(Fk_1)*dk_1;
+        bb_hs = (Fk'*ybk_1)/(dk_1'*ybk_1);
+        dk = -Fk + bb_hs*dk_1;
+        count3+=1;
+        
     end
-    dk = -Fk + b_nn*dk_1;
 
     if norm(dk)<tol
         x = xk; 
@@ -92,19 +109,19 @@ while(norm(Fk) > tol && k <= maxit) %step1
     
     % step3: finding the trial point zk - line search
     mk=0;
-    alp = bk*rho^mk;
-    zk = xk + alp*dk;  
+    alpha_k = bk*rho^mk;
+    zk = xk + alpha_k*dk;  
     Fz = feval(f,zk);
     numf = numf+1;
-    while(-Fz'*dk < sigma*alp*norm(dk)^2)
+    while(-Fz'*dk < sigma*alpha_k*norm(dk)^2)
         mk = mk+1;
         if(mk > 1000)
             disp('trial point zk iterations exceeded')
             iflag = 1;
             return;
         end
-        alp = bk*rho^mk;
-        zk = xk + alp*dk;  
+        alpha_k = bk*rho^mk;
+        zk = xk + alpha_k*dk;  
         Fz = feval(f,zk);
         numf = numf+1;
     end
@@ -121,9 +138,17 @@ while(norm(Fk) > tol && k <= maxit) %step1
     
     % Set bk to be in [bmin, bmax]. For now we let bk=1 for all k
     k = k+1;
+    alphak_1 = alpha_k;
     Fk_1 = Fk;
     dk_1 = dk;
+    Fk = feval(f, xk);
+    numf = numf+1;
+    yk_1 = Fk - Fk_1;
+    A = Fk'*yk_1;
+    B = Fk'*dk_1;
+    
 end
+disp([count1,count2,count3]);
 x = xk; 
 gnorm = norm(Fk);
 k = k-1;
