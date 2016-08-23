@@ -51,13 +51,13 @@ end
 rho = 0.5;
 sigma = 1e-4;
 %mu = 1.4;
-eta = 1;
+eta = 1.0;
 ga = 1.9; %gamma variable
 %b_min = 1;
 %b_max = 10;
 k = 0;
 bk = 1; %beta for the line search (whereas b_bd is for computing direction)
-t = 1;
+t = 0.1;
 
 xk = x0; 
 Fk = feval(f,xk);
@@ -87,14 +87,14 @@ while(norm(Fk) > tol && k <= maxit) %step1
         %calculation of the hybrid beta parameter
         etak_1 = -1/(norm(dk_1)*min([eta, norm(Fk_1)]));
         b_hs = (A)/(C);
-        b_dhs = (-(Fk_1'*dk_1)/(C))*b_hs - t*(norm(yk_1)^2*B)/(C^2);
+        b_dhs = (-(Fk_1'*dk_1)/(C))*b_hs - t*(norm(ybk_1)^2*B)/(C^2);
         b_D = max([etak_1,b_dhs]);
         lambda_k = 1 + (B*A)/(C*norm(Fk)^2);
         dk = -lambda_k*Fk + b_D*dk_1;
-        count2+=1
+        count2+=1;
     elseif B <= 0
-        deltak_1 = 1 + norm(Fk_1)^-1*max([0,((-alphak_1*dk_1'*yk_1)/(alphak_1^2*norm(dk_1)^2))]);
-        ybk_1 = yk_1 + deltak_1*alphak_1*norm(Fk_1)*dk_1;
+        
+        
         bb_hs = (Fk'*ybk_1)/(dk_1'*ybk_1);
         dk = -Fk + bb_hs*dk_1;
         count3+=1;
@@ -125,7 +125,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         Fz = feval(f,zk);
         numf = numf+1;
     end
-    % the algorithm given checks if Fz==0 and stops if true
+    % check if Fz==0 and stops if true
     if norm(Fz)<1.e-6  %has to be tighter than tol since Fk would not have been updated
         x = xk; 
         gnorm = norm(Fk);
@@ -144,11 +144,13 @@ while(norm(Fk) > tol && k <= maxit) %step1
     Fk = feval(f, xk);
     numf = numf+1;
     yk_1 = Fk - Fk_1;
-    A = Fk'*yk_1;
+    deltak_1 = 1 + norm(Fk_1)^-1*max([0,((-alphak_1*dk_1'*yk_1)/(alphak_1^2*norm(dk_1)^2))]);
+    ybk_1 = yk_1 + deltak_1*alphak_1*norm(Fk_1)*dk_1;
+    A = Fk'*ybk_1;
     B = Fk'*dk_1;
     
 end
-disp([count1,count2,count3]);
+disp([count1,count2,count3])
 x = xk; 
 gnorm = norm(Fk);
 k = k-1;
