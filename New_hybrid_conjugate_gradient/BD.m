@@ -81,7 +81,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
     if isequal(k,0) || A < 0
         %b_bd=0;
         dk = -Fk;
-        count1 +=1;
+        count1 = count1 + 1;
     elseif B > 0  
         C = dk_1'*yk_1;   
         %calculation of the hybrid beta parameter
@@ -89,15 +89,15 @@ while(norm(Fk) > tol && k <= maxit) %step1
         b_hs = (A)/(C);
         b_dhs = (-(Fk_1'*dk_1)/(C))*b_hs - t*(norm(ybk_1)^2*B)/(C^2);
         b_D = max([etak_1,b_dhs]);
-        lambda_k = 1 + (B*A)/(C*norm(Fk)^2);
+        lambda_k = 1 + (B*(Fk'*y_k-1))/(C*norm(Fk)^2);
         dk = -lambda_k*Fk + b_D*dk_1;
-        count2+=1;
+        count2 = count2 + 1;
     elseif B <= 0
         
         
-        bb_hs = (Fk'*ybk_1)/(dk_1'*ybk_1);
+        bb_hs = (Fk'*ybk_1)/(dk_1'*yk_1);
         dk = -Fk + bb_hs*dk_1;
-        count3+=1;
+        count3= count3 + 1;
         
     end
 
