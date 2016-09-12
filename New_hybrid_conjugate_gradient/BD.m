@@ -95,7 +95,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
     elseif B <= 0
         
         
-        bb_hs = (Fk'*ybk_1)/(dk_1'*yk_1);
+        bb_hs = (Fk'*ybk_1)/(dk_1'*ybk_1);
         dk = -Fk + bb_hs*dk_1;
         count3= count3 + 1;
         
@@ -146,7 +146,8 @@ while(norm(Fk) > tol && k <= maxit) %step1
     yk_1 = Fk - Fk_1;
     deltak_1 = 1 + norm(Fk_1)^-1*max([0,((-alphak_1*dk_1'*yk_1)/(alphak_1^2*norm(dk_1)^2))]);
     ybk_1 = yk_1 + deltak_1*alphak_1*norm(Fk_1)*dk_1;
-    A = Fk'*ybk_1;
+    A = Fk'*yk_1;
+    Ab = Fk'*ybk_1;
     B = Fk'*dk_1;
     
 end
