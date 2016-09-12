@@ -66,7 +66,7 @@ iflag = 0;
 % variablename_1 represents the value at k-1
 Fk_1 = Fk;
 dk_1 = zeros(size(Fk));
-alphak_1 = 0;
+%alphak_1 = 0;
 
 %b_bd = 0;
 A = 1; %used to store Fk'*y_k-1 value
@@ -89,7 +89,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         b_hs = (A)/(C);
         b_dhs = (-(Fk_1'*dk_1)/(C))*b_hs - t*(norm(ybk_1)^2*B)/(C^2);
         b_D = max([etak_1,b_dhs]);
-        lambda_k = 1 + (B*(Fk'*y_k-1))/(C*norm(Fk)^2);
+        lambda_k = 1 + (B*(Fk'*yk_1))/(C*norm(Fk)^2);
         dk = -lambda_k*Fk + b_D*dk_1;
         count2 = count2 + 1;
     elseif B <= 0
