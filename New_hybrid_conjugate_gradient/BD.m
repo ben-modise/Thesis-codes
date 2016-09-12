@@ -69,7 +69,7 @@ dk_1 = zeros(size(Fk));
 %alphak_1 = 0;
 
 %b_bd = 0;
-A = 1; %used to store Fk'*y_k-1 value
+%A = 1; %used to store Fk'*y_k-1 value
 B = 1; %used to store Fk'*d_k-1 value
 
 count1 = -1;
@@ -86,7 +86,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         C = dk_1'*yk_1;   
         %calculation of the hybrid beta parameter
         etak_1 = -1/(norm(dk_1)*min([eta, norm(Fk_1)]));
-        b_hs = (A)/(C);
+        b_hs = (Ab)/(C);
         b_dhs = (-(Fk_1'*dk_1)/(C))*b_hs - t*(norm(ybk_1)^2*B)/(C^2);
         b_D = max([etak_1,b_dhs]);
         lambda_k = 1 + (B*(Fk'*yk_1))/(C*norm(Fk)^2);
@@ -151,7 +151,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
     B = Fk'*dk_1;
     
 end
-disp([count1,count2,count3])
+%disp([count1,count2,count3])
 x = xk; 
 gnorm = norm(Fk);
 k = k-1;
