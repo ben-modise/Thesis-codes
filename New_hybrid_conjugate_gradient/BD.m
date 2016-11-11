@@ -1,7 +1,7 @@
 function [x,k,numf,gnorm, iflag] = BD(x0,f,P,tol,maxit)
 %   Hybrd Conjugate Gradient Projection method for convex constrained monotone
 %   systems. Based on 'A modified Hestenes–Stiefel conjugate gradient method with
-%   sufficient descent condition and conjugacy condition' by Dong et al.
+%   sufficient descent condition and conjugacy condition' by Dong et al(2015).
 %   
 %
 %   This program implements the algorithm for the above paper for 

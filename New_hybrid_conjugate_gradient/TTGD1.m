@@ -1,4 +1,4 @@
-function [x,k,numf,gnorm, iflag] = TTGD(x0,f,P,tol,maxit)
+function [x,k,numf,gnorm, iflag] = TTGD1(x0,f,P,tol,maxit)
 %   A self-adaptive three-term conjugate gradient method
 %   for monotone nonlinear equations with convex constraints
 %   X Wang, S Li, X Kou. DOI 10.1007/s10092-015-0140-5
@@ -61,7 +61,7 @@ Fk = feval(f,xk);
 numf = 1;
 iflag = 0;
 % variablename_1 represents the value at k-1
-Fk_1 = Fk;
+%Fk_1 = Fk;
 dk_1 = zeros(size(Fk));
 
 %thetak = 0;
