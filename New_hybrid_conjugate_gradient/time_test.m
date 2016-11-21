@@ -39,8 +39,8 @@ x0 = zeros(10000,1);
 tic;
 [~,k1,numf1,~, ~] = BNN(x0, @problem4);
 BNN_time = toc;
-tic
-[~,k2,numf2,~, ~] = BD(x0, @problem4);
+tic %using varsigma seems to show improvement only for this problem
+[~,k2,numf2,~, ~] = BD(x0, @problem4); 
 BD_time = toc;
 disp([BNN_time,BD_time])
 disp([numf1,numf2])

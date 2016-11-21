@@ -113,7 +113,9 @@ while(norm(Fk) > tol && k <= maxit) %step1
     zk = xk + alpha_k*dk;  
     Fz = feval(f,zk);
     numf = numf+1;
-    while(-Fz'*dk < sigma*alpha_k*norm(dk)^2)
+    varsigma=1;
+    
+    while(-Fz'*dk < sigma*alpha_k*varsigma*norm(dk)^2)
         mk = mk+1;
         if(mk > 1000)
             disp('trial point zk iterations exceeded')
@@ -123,6 +125,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         alpha_k = bk*rho^mk;
         zk = xk + alpha_k*dk;  
         Fz = feval(f,zk);
+        varsigma = norm(Fz)/(1+norm(Fz));
         numf = numf+1;
     end
     % check if Fz==0 and stops if true
