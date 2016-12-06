@@ -52,7 +52,7 @@ rho = 0.5;
 sigma = 1e-4;
 %mu = 1.4;
 eta = 1.0;
-ga = 1.9; %gamma variable
+ga = 1.6; %gamma variable
 %b_min = 1;
 %b_max = 10;
 k = 0;
@@ -101,6 +101,8 @@ while(norm(Fk) > tol && k <= maxit) %step1
         
     end
 
+    % we cannot use this if we do not have that dk is bounded above
+    % by a multiple of norm(Fk)
     if norm(dk)<tol
         x = xk; 
         gnorm = norm(Fk);
@@ -128,6 +130,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         varsigma = norm(Fz)/(1+norm(Fz));
         numf = numf+1;
     end
+    k = k+1;
     % check if Fz==0 and stops if true
     if norm(Fz)<1.e-6  %has to be tighter than tol since Fk would not have been updated
         x = xk; 
@@ -140,7 +143,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
     xk = P(xk - ga*Xi*Fz);
     
     % Set bk to be in [bmin, bmax]. For now we let bk=1 for all k
-    k = k+1;
+    
     alphak_1 = alpha_k;
     Fk_1 = Fk;
     dk_1 = dk;
@@ -157,7 +160,7 @@ end
 %disp([count1,count2,count3])
 x = xk; 
 gnorm = norm(Fk);
-k = k-1;
+%k = k-1;
 if (norm(Fk) > tol && k >= maxit),
     iflag =2;
 end

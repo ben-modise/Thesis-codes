@@ -1,15 +1,25 @@
 %problem 1
-x0 = ones(10000,1);
+x01 = ones(10000,1);
 tic;
-[~,k1,numf1,~, ~] = BNN(x0, @problem1, @P_Rplus);
+[~,k1,numf1,~, ~] = BNN(x01, @problem1, @P_Rplus);
 BNN_time = toc;
 tic
-[~,k2,numf2,~, ~] = BD(x0, @problem1, @P_Rplus);
+[~,k2,numf2,~, ~] = BD(x01, @problem1, @P_Rplus);
 BD_time = toc;
 disp([BNN_time,BD_time])
 disp([numf1,numf2])
 disp([k1,k2])
-
+    %different starting point
+x02 = 100*ones(1000,1);
+tic;
+[~,k1,numf1,~, ~] = BNN(x02, @problem1, @P_Rplus);
+BNN_time = toc;
+tic
+[~,k2,numf2,~, ~] = BD(x02, @problem1, @P_Rplus);
+BD_time = toc;
+disp([BNN_time,BD_time])
+disp([numf1,numf2])
+disp([k1,k2])
 %problem 2
 x0 = ones(10000,1);
 tic;
@@ -22,8 +32,23 @@ disp([BNN_time,BD_time])
 disp([numf1,numf2])
 disp([k1,k2])
 
+%different starting point 
+%in this case perhaps record the various starting points randomly generated
+
+x0 = rand(10000,1);
+tic;
+[~,k1,numf1,~, ~] = BNN(x0, @problem2, @P_L1Rplus);
+BNN_time = toc;
+tic
+[~,k2,numf2,~, ~] = BD(x0, @problem2, @P_L1Rplus);
+BD_time = toc;
+disp([BNN_time,BD_time])
+disp([numf1,numf2])
+disp([k1,k2])
+
+
 %problem 3
-x0 = -ones(10000,1);
+x0 = -100*ones(10000,1);
 tic;
 [~,k1,numf1,~, ~] = BNN(x0, @problem3);
 BNN_time = toc;
