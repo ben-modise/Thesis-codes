@@ -10,7 +10,7 @@ if isempty(D)
     n = length(x);
     B_ = zeros(n);
     for i = 1:n
-        D_(i) = 100*rand()*atan(x(i));
+        D_(i) = 100*rand();%*atan(x(i));
     end
     D = D_;
     A = 2*rand(n)-1;

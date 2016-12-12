@@ -4,7 +4,6 @@ n = length(x);
 B = zeros(n);
 D = 100*rand(n,1);
 A = 2*rand(n)-1;
-A = 2*rand(n)-1;
 
 %set up of a skew-symmetric matrix
 for i = 1:n-1
