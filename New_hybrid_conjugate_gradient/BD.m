@@ -52,7 +52,7 @@ rho = 0.5;
 sigma = 1e-4;
 %mu = 1.4;
 eta = 1.0;
-ga = 1.9; %gamma variable
+ga = 1.8; %gamma variable
 %b_min = 1;
 %b_max = 10;
 k = 0;
@@ -94,8 +94,8 @@ while(norm(Fk) > tol && k <= maxit) %step1
         count2 = count2 + 1;
     elseif B <= 0
         
-        
-        bb_hs = (Fk'*ybk_1)/(dk_1'*ybk_1);
+        %proved using Fk'*yk_1
+        bb_hs = (Fk'*yk_1)/(dk_1'*ybk_1);
         dk = -Fk + bb_hs*dk_1;
         count3= count3 + 1;
         
@@ -131,7 +131,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         numf = numf+1;
     end
     k = k+1;
-    % check if Fz==0 and stops if true
+    %check if Fz==0 and stops if true
     if norm(Fz)<1.e-6  %has to be tighter than tol since Fk would not have been updated
         x = xk; 
         gnorm = norm(Fk);

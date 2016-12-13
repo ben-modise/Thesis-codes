@@ -50,7 +50,7 @@ end
 rho = 0.5;
 sigma = 1e-4;
 mu = 1.4;
-ga = 1.55; %gamma variable
+ga = 1.5; %gamma variable
 %b_min = 1;
 %b_max = 10;
 k = 0;
@@ -108,7 +108,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         Fz = feval(f,zk);
         numf = numf+1;
     end
-    % the algorithm given checks if Fz==0 and stops if true
+    %the algorithm given checks if Fz==0 and stops if true
     if norm(Fz)<1.e-6  %has to be tighter than tol since Fk would not have been updated
         x = xk; 
         gnorm = norm(Fk);

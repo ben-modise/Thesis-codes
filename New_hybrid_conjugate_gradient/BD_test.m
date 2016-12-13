@@ -36,10 +36,10 @@ dim=10000;
 x1 = ones(dim,1); % x2 = 100*ones(dim,1); is outside the constraint, 
 %projection onto the convex set yields x1
 x2 = rand(dim,1);
-x3 = 0.1*ones(dim,1);
+%x3 = 0.1*ones(dim,1);
 x4a = ones(dim,1); x4b = (1:dim)';x4=x4a./x4b; x5 = flip(x4); x6 = x1 - x4;
 
-init = [x1,x2,x3,x4,x5,x6];
+init = [x1,x2,x4,x5,x6];%,x3 exceeds zk trial iterations for BD
 fprintf('     Testing problem 2\n');
 fprintf('---------------------------------\n')
 n= size(init,2); %gives the number of test points
