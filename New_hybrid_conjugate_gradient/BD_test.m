@@ -14,9 +14,9 @@ fprintf('     Testing problem 1\n');
 fprintf('---------------------------------\n')
 n= size(init,2); %gives the number of test points
 output = fopen('Results/Problem1.csv','wt');
-fprintf(output,'\n Results for Problem 1 in the hybrid CG proj scheme\n');
-fprintf(output,'Initial, Dim, BNN, , BD, , \n');
-fprintf(output,',,Iterations,Function Evals,Iterations,Function Evals\n');
+%fprintf(output,'\n Results for Problem 1 in the hybrid CG proj scheme\n');
+fprintf(output,'Initial, Dim,Iterations,Function Evals,Iterations,Function Evals\n');
+fprintf(output,' , , BNN, , BD, , \n');
 %strcat to concatenate strings
 for i=1:n
    [~,k,numf,~,iflag] = BD(init(:,i), @problem1, @P_Rplus); 
@@ -44,9 +44,9 @@ fprintf('     Testing problem 2\n');
 fprintf('---------------------------------\n')
 n= size(init,2); %gives the number of test points
 output = fopen('Results/Problem2.csv','wt');
-fprintf(output,'\n Results for Problem 2 in the hybrid CG proj scheme\n');
-fprintf(output,'Initial, Dim, BNN, , BD, , \n');
-fprintf(output,',,Iterations,Function Evals,Iterations,Function Evals\n');
+%fprintf(output,'\n Results for Problem 2 in the hybrid CG proj scheme\n');
+fprintf(output,'Initial, Dim,Iterations,Function Evals,Iterations,Function Evals\n');
+fprintf(output,',, BNN,, BD,\n');
 %strcat to concatenate strings
 for i=1:n
    [~,k,numf,~,iflag] = BD(init(:,i), @problem2,@P_L1Rplus); 
@@ -68,9 +68,9 @@ fprintf('     Testing problem 3\n');
 fprintf('---------------------------------\n')
 n= size(init,2); %gives the number of test points
 output = fopen('Results/Problem3.csv','wt');
-fprintf(output,'\n Results for Problem 3 in the hybrid CG proj scheme\n');
-fprintf(output,'Initial, Dim, BNN, , BD, , \n');
-fprintf(output,',,Iterations,Function Evals,Iterations,Function Evals\n');
+%fprintf(output,'\n Results for Problem 3 in the hybrid CG proj scheme\n');
+fprintf(output,'Initial, Dim,Iterations,Function Evals,Iterations,Function Evals\n');
+fprintf(output,',, BNN,, BD,\n');
 %strcat to concatenate strings
 for i=1:n
    [~,k,numf,~,iflag] = BD(init(:,i), @problem3); 
@@ -94,9 +94,9 @@ fprintf('     Testing problem 4\n');
 fprintf('---------------------------------\n')
 n= size(init,2); %gives the number of test points
 output = fopen('Results/Problem4.csv','wt');
-fprintf(output,'\n Results for Problem 4 in the hybrid CG proj scheme\n');
-fprintf(output,'Initial, Dim, BNN, , BD, , \n');
-fprintf(output,',,Iterations,Function Evals,Iterations,Function Evals\n');
+%fprintf(output,'\n Results for Problem 4 in the hybrid CG proj scheme\n');
+fprintf(output,'Initial, Dim,Iterations,Function Evals,Iterations,Function Evals\n');
+fprintf(output,',, BNN,, BD,\n');
 %strcat to concatenate strings
 for i=1:n
    [~,k,numf,~,iflag] = BD(init(:,i), @problem4); 
@@ -111,7 +111,7 @@ fclose(output);
 
 
 %problem 5
-dim =100;
+dim = 200;
 
 clear functions;
 x1 = ones(dim,1); x2 = 10*ones(dim,1); x3 = 0.1*ones(dim,1);
@@ -121,9 +121,9 @@ fprintf('     Testing problem 5\n');
 fprintf('---------------------------------\n')
 n= size(init,2); %gives the number of test points
 output = fopen('Results/Problem5.csv','wt');
-fprintf(output,'\n Results for Problem 5 in the hybrid CG proj scheme\n');
-fprintf(output,'Initial, Dim, BNN, , BD, , \n');
-fprintf(output,',,Iterations,Function Evals,Iterations,Function Evals\n');
+%fprintf(output,'\n Results for Problem 5 in the hybrid CG proj scheme\n');
+fprintf(output,'Initial, Dim,Iterations,Function Evals,Iterations,Function Evals\n');
+fprintf(output,',, BNN,, BD,\n');
 %strcat to concatenate strings
 for i=1:n
    [~,k,numf,~,iflag] = BD(init(:,i), @problem5,@P_Rplus); 
