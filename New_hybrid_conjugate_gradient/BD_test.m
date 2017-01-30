@@ -49,7 +49,7 @@ writetofile(init, @problem4);
 
 
 %problem 5
-dim = 200;
+dim = 100;
 
 clear functions;
 x1 = ones(dim,1); x2 = 10*ones(dim,1); x3 = 0.1*ones(dim,1);

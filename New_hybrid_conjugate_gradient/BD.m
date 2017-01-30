@@ -103,6 +103,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
 
     % we cannot use this if we do not have that dk is bounded above
     % by a multiple of norm(Fk)
+    k = k+1;
     if norm(dk)<tol
         x = xk; 
         gnorm = norm(Fk);
@@ -130,7 +131,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         varsigma = norm(Fz)/(1+norm(Fz));
         numf = numf+1;
     end
-    k = k+1;
+    %k = k+1;
     %check if Fz==0 and stops if true
     if norm(Fz)<1.e-6  %has to be tighter than tol since Fk would not have been updated
         x = xk; 

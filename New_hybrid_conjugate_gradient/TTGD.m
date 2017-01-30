@@ -55,15 +55,16 @@ delta = 1.9;
 eta = 0.2;
 
 k=0;
-if strcmp(f,'problem5b')
-    [Da,M] = problem5a(x0);
-end
+% if strcmp(f,'problem5b')
+%     [Da,M] = problem5a(x0);
+% end
 xk = x0; 
-if strcmp(f,'problem5b')
-    Fk = feval(f,xk,Da,M);
-else
-    Fk = feval(f,xk);
-end
+% if strcmp(f,'problem5b')
+%     Fk = feval(f,xk,Da,M);
+% else
+%     Fk = feval(f,xk);
+% end
+Fk = feval(f,xk);
 numf = 1;
 iflag = 0;
 % variablename_1 represents the value at k-1
@@ -77,14 +78,14 @@ dk_1 = zeros(size(Fk));
 
 while(norm(Fk) > tol && k <= maxit) %step1
     % step2: calculation of direction
-
+    
     if isequal(k,0) || A < B || A > C
         dk = -Fk;
         
     else
         dk = -Fk + b_hs*dk_1 - thetak*yk_1;       
     end
-    
+    k = k+1;
     if norm(dk)<tol
         x = xk; 
         gnorm = norm(Fk);
@@ -154,7 +155,6 @@ while(norm(Fk) > tol && k <= maxit) %step1
     A = sk'*yk_1;
     B = sigma*norm(Fk)^tau*(sk'*sk);
     C = delta*norm(Fk)^tau*(sk'*sk);
-    k = k+1;
     
 end
 x = xk; 

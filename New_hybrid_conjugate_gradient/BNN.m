@@ -83,7 +83,7 @@ while(norm(Fk) > tol && k <= maxit) %step1
         b_nn = (A-B)/C;
     end
     dk = -Fk + b_nn*dk_1;
-
+    
     if norm(dk)<tol
         x = xk; 
         gnorm = norm(Fk);
@@ -114,19 +114,19 @@ while(norm(Fk) > tol && k <= maxit) %step1
         gnorm = norm(Fk);
         return
     end
-    
+    k = k+1;
     % step4: computing the next iterate 
     Xi = (Fz'*(xk - zk))/norm(Fz)^2;
     xk = P(xk - ga*Xi*Fz);
     
     % Set bk to be in [bmin, bmax]. For now we let bk=1 for all k
-    k = k+1;
+    
     Fk_1 = Fk;
     dk_1 = dk;
 end
 x = xk; 
 gnorm = norm(Fk);
-k = k-1;
+%k = k-1;
 if (norm(Fk) > tol && k >= maxit),
     iflag =2;
 end
