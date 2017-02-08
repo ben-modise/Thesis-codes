@@ -50,7 +50,7 @@ end
 rho = 0.5;
 sigma = 1e-6;
 tau = 2;
-ga = 1.5; %gamma variable
+ga = 1.8; %gamma variable
 delta = 1.9;
 eta = 0.2;
 

@@ -50,7 +50,6 @@ end
 
 rho = 0.5;
 sigma = 1e-4;
-%mu = 1.4;
 eta = 1.0;
 ga = 1.8; %gamma variable
 %b_min = 1;
