@@ -22,7 +22,7 @@ function [x,k,numf,gnorm, iflag] = TTGD(x0,f,P,tol,maxit)
 %                 = 1 steplength unsuccessful
 %                 = 2 norm(Fk) > tol && iter > maxit
     
-clc; 
+%clc; 
 if nargin < 3
     P = @constantfunction;
 elseif isempty(P)
