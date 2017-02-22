@@ -1,12 +1,11 @@
-function z = problem4(x)
-%Ref: New hybrid conjugate gradient projection method for the
-%     convex constrained equations. Min Sun & Jing Liu
-n = length(x);
-z = zeros(n,1);
-z(1) = 3*x(1)^3 + 2*x(2) - 5 + sin(x(1)-x(2))*sin(x(1)+x(2));
-for i = 2:n-1
+function z = problem6(x)
+%Ref: A projection method for a system of nonlinear 
+%     monotone equations with convex constraints.
+%     Wang, Wang & Xu. DOI 10.1007/s001 86-006-0140-y
 
-    z(i) = -x(i-1)*exp(x(i-1)-x(i)) + x(i)*(4+3*x(i)^2)...
-     + 2*x(i+1) + sin(x(i) - x(i+1))*sin(x(i)+x(i+1)) - 8;
-end
-z(n) = -x(n-1)*exp(x(n-1)-x(n)) + 4*x(n)-3;
+%     Original problem from Yamashita and Fukushima (1997)
+A = [1,0,0,0; 0,1,-1,0;0,1,1,0;0,0,0,0];
+b = [x(1)^3;x(2)^2;2*x(3)^3;2*x(4)^2];
+c = [-10;1;-3;0];
+
+z = A*x + b + c;

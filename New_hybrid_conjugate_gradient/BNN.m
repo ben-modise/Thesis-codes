@@ -1,4 +1,4 @@
-function [x,k,numf,gnorm, iflag] = BNN(x0,f,P,tol,maxit)
+function [x,k,numf,gnorm, iflag] = BNN(x0,f,P,P_options,params)
 %   New hybrid conjugate gradient projection method for the
 %   convex constrained equations. Min Sun & Jing 
 %   DOI 10.1007/s10092-0150154-z
@@ -10,6 +10,8 @@ function [x,k,numf,gnorm, iflag] = BNN(x0,f,P,tol,maxit)
 %          f   = objective function f: R^n-->R^n
 %          P   = the projection function onto the constraint region C
 %                optional, default: P(x) = x
+%    P_options = any optional arguments to be used in the projection
+%                function
 %          tol = termination criterion norm(F_k) <= tol
 %                optional, default = 1.e-5
 %        maxit = maximum iterations (optional) default = 50000
@@ -29,6 +31,12 @@ elseif isempty(P)
     P = @constantfunction;
 end
 
+if nargin >= 4 && ~isempty(P_options)
+    P = @(x)P(x,P_options);
+end
+    
+
+
 % input validation
 
 if norm(P(x0)-x0)~=0
@@ -38,11 +46,16 @@ end
 
 % initialize variables
 if nargin < 5
-    maxit = 2000; 
-end
-if nargin < 4
+    maxit = 2000;
     tol = 1.e-5;
+elseif isempty(params)
+    maxit = 2000;
+    tol = 1.e-5;
+else
+    maxit = params(1);
+    tol = params(2);
 end
+
 
 
 %TODO: perhaps the following should also be inputs with default values
