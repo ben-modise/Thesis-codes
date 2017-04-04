@@ -9,8 +9,8 @@ dim = size(init,1);
 outputfile = strcat('Results/',func2str(Problem),'.csv'); %'char(problem)' fails in octave so use func2str(problem)
 output = fopen(outputfile,'wt');
 %fprintf(output,'\n Results for Problem 1 in the hybrid CG proj scheme\n');
-fprintf(output,['Initial, Dim,iters,Fn Evals,Iters,Fn Evals,iters,Fn Evals\n']);
-fprintf(output,' , , BNN, , BD,,TTGD, \n');
+fprintf(output,'Initial, Dim,iters,Fn Evals,Iters,Fn Evals,iters,Fn Evals\n');
+fprintf(output,' , , BNN, , BD,,TTGD \n');
 %strcat to concatenate strings
 for i=1:n
    [~,k,numf,~,~] = BD(init(:,i), varargin{:}); 

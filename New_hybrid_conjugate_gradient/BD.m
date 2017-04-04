@@ -35,8 +35,6 @@ end
 if nargin >= 4 && ~isempty(P_options)
     P = @(x)P(x,P_options);
 end
-    
-
 
 % input validation
 
