@@ -140,6 +140,6 @@ end
 x = xk; 
 gnorm = norm(Fk);
 %k = k-1;
-if (norm(Fk) > tol && k >= maxit),
+if (norm(Fk) > tol && k >= maxit)
     iflag =2;
 end
