@@ -5,3 +5,6 @@ octave-workspace
 *.mat
 *.csv
 varlist.m
+*.jpg
+*.pdf
+*.eps
