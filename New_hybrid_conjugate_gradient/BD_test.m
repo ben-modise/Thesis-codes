@@ -1,6 +1,17 @@
 %this script runs the test for the proposed algorithm in Ben's Msc
 %dissertation
 
+%resetting data on output files for performance profiles
+iters = fopen('itersfile.csv','wt');
+fevals = fopen('fevalsfile.csv','wt');
+CPU = fopen('cpufile.csv','wt');
+
+fprintf(iters,' BNN ,BD,TTGD \n');
+fprintf(fevals,' BNN ,BD,TTGD \n');
+fprintf(CPU,' BNN ,BD,TTGD \n');
+
+fclose('all');
+
 %problem 1
 %setting initial points.
 dim=10000;
@@ -47,7 +58,7 @@ fprintf('---------------------------------\n')
 writetofile(init, @problem4, @P_L1Rplus,3);
 
 
-%problem 5
+% problem 5
 dim = 300;
 
 clear functions;

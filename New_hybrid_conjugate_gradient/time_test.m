@@ -1,11 +1,13 @@
 %problem 1
 x01 = ones(10000,1);
-tic;
+tic
 [~,k1,numf1,~, ~] = BNN(x01, @problem1, @P_Rplus);
 BNN_time = toc;
-tic
+
+tic;
 [~,k2,numf2,~, ~] = BD(x01, @problem1, @P_Rplus);
 BD_time = toc;
+
 disp([BNN_time,BD_time])
 disp([numf1,numf2])
 disp([k1,k2])
